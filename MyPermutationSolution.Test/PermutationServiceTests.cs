@@ -30,12 +30,24 @@ namespace MyPermutationSolution.Test
         [Fact]
         public void CalculateNextPermutation_WithInvalidArray_ThrowsArgumentException()
         {
-            // Arrange
-            int[] invalidArray = new int[101]; // Demasiado largo
+            int[] invalidArray = new int[101];
             var request = new PermutationRequest { Vector = invalidArray };
 
-            // Act & Assert
             Assert.Throws<ArgumentException>(() => _service.CalculatePermutation(request));
+        }
+
+        [Theory]
+        [InlineData(new[] { 1, 2, 3 }, new[] { 1, 3, 2 })]
+        [InlineData(new[] { 3, 2, 1 }, new[] { 1, 2, 3 })]
+        [InlineData(new[] { 1, 1, 5 }, new[] { 1, 5, 1 })]
+        public void CalculateNextPermutation_Multiple_Result(int[] input, int[] expected)
+        {
+            var request = new PermutationRequest { Vector = input };
+            var response = _service.CalculatePermutation(request);
+            int[] result2 = response.ResponseData;
+
+            // Assert - Ambos métodos deben dar el mismo resultado
+            Assert.Equal(expected, result2);
         }
 
     }
