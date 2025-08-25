@@ -15,6 +15,7 @@ namespace MyPermutationSolution.Server.Services
 
         public PermutationResponse CalculatePermutation(PermutationRequest request)
         {
+            ValidateRequest(request);
 
             int[] numbersCopy = new int[request.Vector.Length];
             Array.Copy(request.Vector, numbersCopy, request.Vector.Length);
@@ -62,6 +63,26 @@ namespace MyPermutationSolution.Server.Services
                 (nums[left], nums[right]) = (nums[right], nums[left]);
                 left++;
                 right--;
+            }
+        }
+        private void ValidateRequest(PermutationRequest request)
+        {
+            if (request.Vector == null || request.Vector.Length == 0)
+            {
+                throw new ArgumentException("The data cannot be empty");
+            }
+
+            if (request.Vector.Length > 100)
+            {
+                throw new ArgumentException("The length of the data cannot exceed 100");
+            }
+
+            foreach (var number in request.Vector)
+            {
+                if (number < 0 || number > 100)
+                {
+                    throw new ArgumentException("The data must be Numbers between 0 and 100");
+                }
             }
         }
     }

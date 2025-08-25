@@ -29,6 +29,10 @@ namespace MyPermutationSolution.Server.Controllers
 
                 return Ok(result);
             }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new { Error = "Error interno del servidor" });
