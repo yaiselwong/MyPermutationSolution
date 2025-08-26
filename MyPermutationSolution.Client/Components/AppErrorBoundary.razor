@@ -1,0 +1,30 @@
+﻿
+<PageTitle>Error Page</PageTitle>
+
+<ErrorBoundary @ref="errorBoundary">
+    <ChildContent>
+        @ChildContent
+    </ChildContent>
+    <ErrorContent Context="exception">
+        <div class="container d-flex justify-content-center">
+            <div class="alert alert-danger m-3 p-3">
+                <h4>Ha ocurrido un error</h4>
+                <p>@exception.Message</p>
+                <button class="btn btn-primary" @onclick="Recover">Go to Home</button>
+            </div>
+        </div>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    private ErrorBoundary? errorBoundary;
+    private Exception? currentError;
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private void Recover()
+    {
+        currentError = null;
+        errorBoundary?.Recover();
+    }
+}

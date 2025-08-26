@@ -8,7 +8,14 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+builder.Services.AddScoped(sp =>
+{
+    var httpClientHandler = new HttpClientHandler();
+    var errorHandler = new HttpErrorHandler(httpClientHandler);
+    return new HttpClient(errorHandler) { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
+});
 
 builder.Services.AddScoped<ICustomHttpClient, CustomHttpClient>();
 builder.Services.AddScoped<IPermutationService, PermutationService>();
