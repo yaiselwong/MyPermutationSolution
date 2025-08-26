@@ -2,7 +2,7 @@ name: Build and Deploy Blazor Hosted to Site4Now
 
 on:
   push:
-    branches: [ "deploytest" ]
+    branches: [ "master" ]
 
 env:
   SERVER_PROJECT_PATH: MyPermutationSolution.Server\MyPermutationSolution.Server.csproj
