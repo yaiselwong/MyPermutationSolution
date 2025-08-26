@@ -1,4 +1,8 @@
-﻿@using MyPermutationSolution.Shared.Models
+﻿@using MyPermutationSolution.Client.Interfaces
+@using MyPermutationSolution.Shared.DTO.Request
+@using MyPermutationSolution.Shared.DTO.Response
+@using MyPermutationSolution.Shared.Models
+@inject IPermutationService permutationService
 
 <h3>This is the vector </h3>
 @if (!string.IsNullOrWhiteSpace(ListOfNumbers))
@@ -10,22 +14,35 @@
 }
 
 
-<div class="container d-flex justify-content-center">
+<div class="container d-flex justify-content-center pb-5">
     <EditForm Model="@model" OnValidSubmit="@AddNumber">
 
         <div class="form-group col-12">
             <label>Add a number:</label>
             <div class="col-12 pt-2 pb-2">
-            <InputText @bind-Value="@model.NumberAdded"
-            class="form-control"
-            placeholder="Solo números" />
+                <InputText @bind-Value="@model.NumberAdded"
+                class="form-control"
+                placeholder="Solo números" />
             </div>
             <ValidationMessage For="@(() => model.NumberAdded)" />
         </div>
 
-        <button type="button" class="btn btn-primary mx-1" disabled="@(TotalOfNumbers >= 100)" @onclick="AddNumber">Agregar a la lista</button>
-        <button type="button" class="btn btn-secondary" @onclick="CleanList">Limpiar lista</button>
+        <button type="button" class="btn btn-primary mx-1" disabled="@(TotalOfNumbers >= 100)" @onclick="AddNumber">Add to the Vector</button>
+        <button type="button" class="btn btn-secondary" @onclick="CleanList">Clean Vector</button>
     </EditForm>
+</div>
+
+<h3>This is the next permutation </h3>
+@if (!string.IsNullOrWhiteSpace(ListOfNumbers))
+{
+    <h4>@result </h4>
+}
+else
+{
+    <h4>-- There is no result yet --</h4>
+}
+<div class="container justify-content-center">
+    <button type="button" class="btn btn-primary mx-1" disabled="@(TotalOfNumbers == 0)" @onclick="Calculate">Calculate</button>
 </div>
 @code {
 
@@ -33,11 +50,14 @@
     private int TotalOfNumbers { get; set; } = 0;
     private NumberModel model = new NumberModel();
     private string disableAdd = "disabled";
-
+    private string result { get; set; } = "";
     private void AddNumber()
     {
         if (!string.IsNullOrWhiteSpace(model.NumberAdded))
         {
+            if (int.TryParse(model.NumberAdded, out int number))           
+                model.AllNumbers.Add(number);
+
             if (!string.IsNullOrWhiteSpace(ListOfNumbers))
             {
                 ListOfNumbers = ListOfNumbers + "," + model.NumberAdded;
@@ -55,7 +75,20 @@
 
     private void CleanList()
     {
+        model.AllNumbers.Clear();
         ListOfNumbers = "";
         TotalOfNumbers = 0;
+        result = "";
+    }
+
+    private async Task Calculate(){
+        var request = new PermutationRequest
+            {
+                Vector = model.AllNumbers.ToArray(),
+                ClientId="My web solution"
+            };
+        PermutationResponse resulttemp = await permutationService.GetNextPermutation(request);
+
+         result = string.Join(", ", resulttemp.ResponseData);
     }
 }
