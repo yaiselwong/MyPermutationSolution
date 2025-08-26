@@ -10,7 +10,7 @@ env:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest  
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
@@ -32,14 +32,14 @@ jobs:
 
     - name: Publish Application
       run: |
-        dotnet publish ${{ env.SERVER_PROJECT_PATH }} \
-          -c Release \
-          -o ${{ env.PUBLISH_DIR }} \
-          --self-contained false \
+        dotnet publish ${{ env.SERVER_PROJECT_PATH }} `
+          -c Release `
+          -o ${{ env.PUBLISH_DIR }} `
+          --self-contained false `
           /p:UseAppHost=false
 
     - name: List published files
-      run: dir ${{ env.PUBLISH_DIR }}  
+      run: dir ${{ env.PUBLISH_DIR }}
 
     - name: FTP Deploy to Site4Now
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
