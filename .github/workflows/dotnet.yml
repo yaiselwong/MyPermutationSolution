@@ -1,0 +1,56 @@
+name: Build and Deploy Blazor Hosted to Site4Now
+
+on:
+  push:
+    branches: [ "master" ]
+
+env:
+  SERVER_PROJECT_PATH: MyPermutationSolution.Server/MyPermutationSolution.Server.csproj
+  PUBLISH_DIR: ./publish
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Publish Application
+      run: |
+        dotnet publish ${{ env.SERVER_PROJECT_PATH }} \
+          -c Release \
+          -o ${{ env.PUBLISH_DIR }} \
+          --self-contained false \
+          /p:UseAppHost=false
+
+    - name: List published files
+      run: ls -la ${{ env.PUBLISH_DIR }}
+
+    - name: FTP Deploy to Site4Now
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: win6145.site4now.net
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
+        local-dir: ${{ env.PUBLISH_DIR }}/
+        server-dir: /site1/
+        dangerous-clean-slate: false
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          README.md
+          LICENSE
