@@ -39,7 +39,6 @@ jobs:
         dotnet publish ${{ env.SERVER_PROJECT_PATH }} `
           -c Release `
           -o ${{ env.PUBLISH_DIR }} `
-          --self-contained false `
           /p:UseAppHost=false
 
     - name: List published files
