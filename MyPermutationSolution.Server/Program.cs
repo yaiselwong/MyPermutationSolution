@@ -7,10 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddMemoryCache();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 builder.Services.AddTransient<IPermutationService, PermutationService>();
+builder.Services.AddSingleton<IMemoryCacheService, MemoryCacheService>();
 
 var app = builder.Build();
 

@@ -7,14 +7,24 @@ namespace MyPermutationSolution.Server.Services
     public class PermutationService : IPermutationService
     {
         private readonly ILogger<PermutationService> _logger;
+        public readonly IMemoryCacheService _cacheService;
 
-        public PermutationService(ILogger<PermutationService> logger)
+        public PermutationService(ILogger<PermutationService> logger,
+            IMemoryCacheService cacheService)
         {
             _logger = logger;
+            _cacheService = cacheService;
         }
 
         public PermutationResponse CalculatePermutation(PermutationRequest request)
         {
+            var cacheKey = GenerateCacheKey(request.Vector);
+            if (_cacheService.Exists(cacheKey))
+            {
+                var response= _cacheService.Get<PermutationResponse>(cacheKey);
+                response.Cache = "Result in Cache";
+                return response;
+            }
             ValidateRequest(request);
 
             int[] numbersCopy = new int[request.Vector.Length];
@@ -22,13 +32,15 @@ namespace MyPermutationSolution.Server.Services
 
             CalculatePermutation(numbersCopy);
 
-            return new PermutationResponse
+            var responsedata= new PermutationResponse
             {
                 RequestData = request.Vector,
                 ResponseData = numbersCopy,
                 CalculatedDate = DateTime.UtcNow,
                 Message = "The permutation was calculated successfully"
             };
+            _cacheService.Set(cacheKey, responsedata, TimeSpan.FromMinutes(60));
+            return responsedata;
         }
 
         public Task<PermutationResponse> CalculatePermutationAsync(PermutationRequest request)
@@ -84,6 +96,11 @@ namespace MyPermutationSolution.Server.Services
                     throw new ArgumentException("The data must be Numbers between 0 and 100");
                 }
             }
+        }
+
+        private static string GenerateCacheKey(int[] numbers)
+        {
+            return $"permutation:v1:{string.Join(":", numbers)}";
         }
     }
 }

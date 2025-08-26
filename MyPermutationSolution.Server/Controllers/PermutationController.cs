@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPermutationSolution.Server.Interfaces;
 using MyPermutationSolution.Shared.DTO.Request;
+using MyPermutationSolution.Shared.DTO.Response;
 
 namespace MyPermutationSolution.Server.Controllers
 {
@@ -27,7 +28,7 @@ namespace MyPermutationSolution.Server.Controllers
 
                 var result = await _permutationService.CalculatePermutationAsync(request);
 
-                return Ok(result);
+                return Ok(new ServerResponse<PermutationResponse> { Data = result });
             }
             catch (ArgumentException ex)
             {
