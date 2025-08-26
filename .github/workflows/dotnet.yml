@@ -22,7 +22,11 @@ jobs:
         global-json-file: global.json
 
     - name: Install WebAssembly Tools
-      run: dotnet workload install wasm-tools
+      run: dotnet workload install wasm-tools --skip-manifest-update
+      
+    - name: Clear NuGet cache
+      run: dotnet nuget locals all --clear
+
 
     - name: Restore dependencies
       run: dotnet restore
