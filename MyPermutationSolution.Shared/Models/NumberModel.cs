@@ -13,5 +13,7 @@ namespace MyPermutationSolution.Shared.Models
         [RegularExpression(@"^\d+$", ErrorMessage = "Only numbers are avaliable")]
         [Range(1, 100, ErrorMessage = "The number must be beetween 1 y 100")]
         public string NumberAdded { get; set; } = string.Empty;
+
+        public List<int> AllNumbers { get; set; } = new List<int>();
     }
 }

@@ -5,12 +5,12 @@ on:
     branches: [ "master" ]
 
 env:
-  SERVER_PROJECT_PATH: MyPermutationSolution.Server/MyPermutationSolution.Server.csproj
-  PUBLISH_DIR: ./publish
+  SERVER_PROJECT_PATH: MyPermutationSolution.Server\MyPermutationSolution.Server.csproj
+  PUBLISH_DIR: .\publish
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
@@ -21,6 +21,9 @@ jobs:
       with:
         dotnet-version: '9.0.x'
 
+    - name: Install WebAssembly Tools
+      run: dotnet workload install wasm-tools
+
     - name: Restore dependencies
       run: dotnet restore
 
@@ -29,14 +32,14 @@ jobs:
 
     - name: Publish Application
       run: |
-        dotnet publish ${{ env.SERVER_PROJECT_PATH }} \
-          -c Release \
-          -o ${{ env.PUBLISH_DIR }} \
-          --self-contained false \
+        dotnet publish ${{ env.SERVER_PROJECT_PATH }} `
+          -c Release `
+          -o ${{ env.PUBLISH_DIR }} `
+          --self-contained false `
           /p:UseAppHost=false
 
     - name: List published files
-      run: ls -la ${{ env.PUBLISH_DIR }}
+      run: dir ${{ env.PUBLISH_DIR }}
 
     - name: FTP Deploy to Site4Now
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -45,7 +48,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
-        local-dir: ${{ env.PUBLISH_DIR }}/
+        local-dir: ${{ env.PUBLISH_DIR }}\
         server-dir: /site1/
         dangerous-clean-slate: false
         exclude: |
