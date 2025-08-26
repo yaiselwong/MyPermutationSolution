@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPermutationSolution.Server", "MyPermutationSolution.Server\MyPermutationSolution.Server.csproj", "{175ECB27-D317-44B4-8D36-BFE9FBB910F2}"
 EndProject

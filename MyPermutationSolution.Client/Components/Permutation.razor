@@ -1,0 +1,61 @@
+﻿@using MyPermutationSolution.Shared.Models
+
+<h3>This is the vector </h3>
+@if (!string.IsNullOrWhiteSpace(ListOfNumbers))
+{
+    <h4>@ListOfNumbers </h4>
+}else
+{
+    <h4>-- The vector is empty --</h4>
+}
+
+
+<div class="container d-flex justify-content-center">
+    <EditForm Model="@model" OnValidSubmit="@AddNumber">
+
+        <div class="form-group col-12">
+            <label>Add a number:</label>
+            <div class="col-12 pt-2 pb-2">
+            <InputText @bind-Value="@model.NumberAdded"
+            class="form-control"
+            placeholder="Solo números" />
+            </div>
+            <ValidationMessage For="@(() => model.NumberAdded)" />
+        </div>
+
+        <button type="button" class="btn btn-primary mx-1" disabled="@(TotalOfNumbers >= 100)" @onclick="AddNumber">Agregar a la lista</button>
+        <button type="button" class="btn btn-secondary" @onclick="CleanList">Limpiar lista</button>
+    </EditForm>
+</div>
+@code {
+
+    private string ListOfNumbers = "";
+    private int TotalOfNumbers { get; set; } = 0;
+    private NumberModel model = new NumberModel();
+    private string disableAdd = "disabled";
+
+    private void AddNumber()
+    {
+        if (!string.IsNullOrWhiteSpace(model.NumberAdded))
+        {
+            if (!string.IsNullOrWhiteSpace(ListOfNumbers))
+            {
+                ListOfNumbers = ListOfNumbers + "," + model.NumberAdded;
+                TotalOfNumbers++;
+            }
+            else
+            {
+                ListOfNumbers = model.NumberAdded;
+                TotalOfNumbers = 1;
+            }
+
+            model.NumberAdded = string.Empty;
+        }
+    }
+
+    private void CleanList()
+    {
+        ListOfNumbers = "";
+        TotalOfNumbers = 0;
+    }
+}
