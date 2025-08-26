@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
+using MyPermutationSolution.Server.Interfaces;
 using MyPermutationSolution.Server.Services;
 using MyPermutationSolution.Shared.DTO.Request;
 
@@ -9,11 +10,12 @@ namespace MyPermutationSolution.Test
     {
         private readonly Mock<ILogger<PermutationService>> _loggerMock;
         private readonly PermutationService _service;
+        private readonly Mock<IMemoryCacheService> _cacheServiceMock;
 
         public PermutationServiceTests()
         {
             _loggerMock = new Mock<ILogger<PermutationService>>();
-            _service = new PermutationService(_loggerMock.Object);
+            _service = new PermutationService(_loggerMock.Object, _cacheServiceMock.Object);
         }
 
         [Fact]
