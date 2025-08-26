@@ -39,7 +39,6 @@ jobs:
         dotnet publish ${{ env.SERVER_PROJECT_PATH }} `
           -c Release `
           -o ${{ env.PUBLISH_DIR }} `
-           /p:DeployOnBuild=true `
           /p:WebPublishMethod=MSDeploy `
           /p:MSDeployServiceURL="win6145.site4now.net:8172/msdeploy.axd?site=yaiselwong-001-site1" `
           /p:DeployIisAppPath="yaiselwong-001-site1" `
