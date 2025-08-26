@@ -8,7 +8,8 @@
 @if (!string.IsNullOrWhiteSpace(ListOfNumbers))
 {
     <h4>@ListOfNumbers </h4>
-}else
+}
+else
 {
     <h4>-- The vector is empty --</h4>
 }
@@ -21,8 +22,8 @@
             <label>Add a number:</label>
             <div class="col-12 pt-2 pb-2">
                 <InputText @bind-Value="@model.NumberAdded"
-                class="form-control"
-                placeholder="Solo números" />
+                           class="form-control"
+                           placeholder="Only Numbers" />
             </div>
             <ValidationMessage For="@(() => model.NumberAdded)" />
         </div>
@@ -33,17 +34,28 @@
 </div>
 
 <h3>This is the next permutation </h3>
-@if (!string.IsNullOrWhiteSpace(ListOfNumbers))
+@if (Loading)
 {
-    <h4>@result </h4>
+    <div>
+        <CallLoading Message="Calculating"></CallLoading>
+    </div>
 }
 else
 {
-    <h4>-- There is no result yet --</h4>
+    @if (!string.IsNullOrWhiteSpace(ListOfNumbers))
+    {
+        <h4>@result </h4>
+    }
+    else
+    {
+        <h4>-- There is no result yet --</h4>
+    }
+    <div class="container justify-content-center">
+        <button type="button" class="btn btn-primary mx-1" disabled="@(TotalOfNumbers == 0)" @onclick="Calculate">Calculate</button>
+    </div>
 }
-<div class="container justify-content-center">
-    <button type="button" class="btn btn-primary mx-1" disabled="@(TotalOfNumbers == 0)" @onclick="Calculate">Calculate</button>
-</div>
+
+
 @code {
 
     private string ListOfNumbers = "";
@@ -51,11 +63,12 @@ else
     private NumberModel model = new NumberModel();
     private string disableAdd = "disabled";
     private string result { get; set; } = "";
+    private bool Loading { get; set; } = false;
     private void AddNumber()
     {
         if (!string.IsNullOrWhiteSpace(model.NumberAdded))
         {
-            if (int.TryParse(model.NumberAdded, out int number))           
+            if (int.TryParse(model.NumberAdded, out int number))
                 model.AllNumbers.Add(number);
 
             if (!string.IsNullOrWhiteSpace(ListOfNumbers))
@@ -81,14 +94,17 @@ else
         result = "";
     }
 
-    private async Task Calculate(){
+    private async Task Calculate()
+    {
+        Loading = true;
         var request = new PermutationRequest
-            {
-                Vector = model.AllNumbers.ToArray(),
-                ClientId="My web solution"
-            };
+        {
+            Vector = model.AllNumbers.ToArray(),
+            ClientId = "My web solution"
+        };
         PermutationResponse resulttemp = await permutationService.GetNextPermutation(request);
 
-         result = string.Join(", ", resulttemp.ResponseData);
+        result = string.Join(", ", resulttemp.ResponseData);
+        Loading = false;
     }
 }
