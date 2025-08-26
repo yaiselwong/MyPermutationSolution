@@ -4,8 +4,6 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<WasmRuntimePackVersion>9.0.8</WasmRuntimePackVersion>
-	<WasmNativeWorkload>true</WasmNativeWorkload>
   </PropertyGroup>
 
   <ItemGroup>
