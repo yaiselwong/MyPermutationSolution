@@ -23,7 +23,7 @@ else
             <div class="col-12 pt-2 pb-2">
                 <InputText @bind-Value="@model.NumberAdded"
                            class="form-control"
-                           placeholder="Only Numbers" />
+                           placeholder="Only Numbers between 0 and 100" />
             </div>
             <ValidationMessage For="@(() => model.NumberAdded)" />
         </div>
@@ -69,7 +69,14 @@ else
         if (!string.IsNullOrWhiteSpace(model.NumberAdded))
         {
             if (int.TryParse(model.NumberAdded, out int number))
+            {
+                if (number < 1 || number > 100)
+                {                 
+                    return;
+                }
                 model.AllNumbers.Add(number);
+            }
+                
 
             if (!string.IsNullOrWhiteSpace(ListOfNumbers))
             {
