@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MyPermutationSolution.Client.Interfaces;
+using Microsoft.Extensions.Logging;
+using MyPermutationSolution.Client.Shared.Interfaces;
 using MyPermutationSolution.Shared.DTO.Response;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace MyPermutationSolution.Client.Services
+namespace MyPermutationSolution.Client.Shared.Services
 {
     public class CustomHttpClient : ICustomHttpClient
     {

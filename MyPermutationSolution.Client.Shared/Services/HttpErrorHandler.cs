@@ -1,4 +1,4 @@
-﻿namespace MyPermutationSolution.Client.Services
+﻿namespace MyPermutationSolution.Client.Shared.Services
 {
     using System.Net.Http;
     using System.Threading;

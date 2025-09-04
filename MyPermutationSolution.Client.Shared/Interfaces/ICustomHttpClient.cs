@@ -1,4 +1,4 @@
-﻿namespace MyPermutationSolution.Client.Interfaces
+﻿namespace MyPermutationSolution.Client.Shared.Interfaces
 {
     public interface ICustomHttpClient
     {
