@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="456" height="456" viewBox="0 0 456 456" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <!-- Letra L -->
+    <path d="M 80,280 H 120 V 200 H 160 V 280 H 200 V 320 H 80 Z" style="fill:#ffffff;fill-rule:nonzero;"/>
+    
+    <!-- Letra O -->
+    <path d="M 220,320 H 180 V 200 H 220 C 250,200 270,220 270,260 C 270,300 250,320 220,320 Z M 220,240 V 280 C 230,280 235,275 235,260 C 235,245 230,240 220,240 Z" style="fill:#ffffff;fill-rule:nonzero;"/>
+    
+    <!-- Letra A -->
+    <path d="M 280,320 H 320 L 350,240 H 390 L 420,320 H 460 L 380,200 H 360 Z M 355,280 L 370,240 L 385,280 Z" style="fill:#ffffff;fill-rule:nonzero;"/>
+    
+    <!-- Letra D -->
+    <path d="M 480,320 H 520 V 200 H 560 C 590,200 610,220 610,260 C 610,300 590,320 560,320 Z M 520,240 V 280 H 560 C 570,280 575,275 575,260 C 575,245 570,240 560,240 Z" style="fill:#ffffff;fill-rule:nonzero;"/>
+    
+    <!-- Letra I -->
+    <path d="M 620,320 H 660 V 200 H 700 V 320 H 740 V 360 H 620 Z" style="fill:#ffffff;fill-rule:nonzero;"/>
+    
+    <!-- Letra N -->
+    <path d="M 760,320 H 800 V 240 L 860,320 H 900 V 200 H 860 V 280 L 800,200 H 760 Z" style="fill:#ffffff;fill-rule:nonzero;"/>
+    
+    <!-- Letra G -->
+    <path d="M 920,320 H 960 V 200 H 1000 C 1030,200 1050,220 1050,260 C 1050,300 1030,320 1000,320 Z M 960,240 V 280 H 1000 C 1010,280 1015,275 1015,260 C 1015,245 1010,240 1000,240 Z M 1000,280 H 1020 V 260 H 1000 Z" style="fill:#ffffff;fill-rule:nonzero;"/>
+</svg>

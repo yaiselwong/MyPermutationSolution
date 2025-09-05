@@ -1,7 +1,7 @@
 ﻿using MyPermutationSolution.Shared.DTO.Request;
 using MyPermutationSolution.Shared.DTO.Response;
 
-namespace MyPermutationSolution.Client.Interfaces
+namespace MyPermutationSolution.Client.Shared.Interfaces
 {
     public interface IPermutationService
     {

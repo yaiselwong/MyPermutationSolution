@@ -1,9 +1,9 @@
-﻿using MyPermutationSolution.Client.Interfaces;
+﻿using MyPermutationSolution.Client.Shared.Interfaces;
 using MyPermutationSolution.Shared.DTO.Request;
 using MyPermutationSolution.Shared.DTO.Response;
 using System.Net.Http;
 
-namespace MyPermutationSolution.Client.Services
+namespace MyPermutationSolution.Client.Shared.Services
 {
     public class PermutationService: IPermutationService
     {

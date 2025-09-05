@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MyPermutationSolution.Client;
-using MyPermutationSolution.Client.Interfaces;
-using MyPermutationSolution.Client.Services;
+using MyPermutationSolution.Client.Shared.Interfaces;
+using MyPermutationSolution.Client.Shared.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
